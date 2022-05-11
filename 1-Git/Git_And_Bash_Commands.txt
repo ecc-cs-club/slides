@@ -1,0 +1,90 @@
+download links
+github desktop
+    https://desktop.github.com/
+git bash
+    https://git-scm.com/downloads
+dealing with .DS_Store files forever
+    https://stackoverflow.com/questions/18393498/gitignore-all-the-ds-store-files-in-every-folder-and-subfolder
+
+basic unix commands
+
+pwd
+    present working directory
+cd path/to/folder
+    change directory
+cd ..
+    go back a folder
+ls
+    list files in current directory
+ls -a
+    list all files, including hidden files
+ls folder_name
+    lists contents of that folder
+cat
+    spits out contents of file
+mkdir folder_name
+    make a folder
+touch file_name
+    create file
+nano file_name
+    open editor inside that terminal
+history
+    shows a history of what commands you entered
+man command_name
+    manual pages for that command
+
+using vim
+i
+    enters insert mode
+esc
+    exit insert mode
+:w
+    save
+:wq or ZZ (uppercase)
+    save and quit
+:q! or ZQ (uppercase)
+    quit without saving
+
+
+git specific commands
+
+git help command
+    gives more info on commands and command usage
+git config --global user.name "Your Name"
+git config --global user.email "youremail@yourdomain.com"
+    so your computer knows its you
+git config --global credential.helper store
+    stores your username and password in PLAINTEXT AND UNENCRYPTED
+    so you dont have to log in everytime make changes to your code
+https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
+    
+
+
+git clone https://github.com/example/example.git
+    clones a remote repository and downloads all the files onto your computer
+git add file
+    adds a file to staging area
+git commit -am 'commit title' -m 'description'
+    automatically adds all edited files
+git commit -m 'commit title' -m 'commit description'
+    moves all staged edits to commit
+
+git pull
+    pulls all new changes from remote repository
+git remote -v
+    list remote destinations
+git checkout branch_name
+    switch to branch_name
+git checkout -b branch_name
+    creates a new branch with that name
+git branch (-a, -r)
+    list local branches (all, remote)
+git merge branch_name
+    be in main branch, target branch you want to add
+    merges current branch with named branch
+git push
+    push your code to the remote repo
+git log
+    view previous commit history
+git log --pretty=oneline
+    view commit hashes and commit titles in one line each
