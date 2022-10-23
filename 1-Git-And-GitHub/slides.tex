@@ -2,12 +2,12 @@
 \usepackage{csquotes}
 \usepackage{hyperref}
 \usepackage{graphicx}
-\graphicspath{ {./screenshots/} }
+\graphicspath{ {./assets} }
 
 \title{Git and Github}
 \author{Edwin Kofler}
 % \institute{Edwin Kofler}
-\date{Fall 2022}
+% \date{Fall 2022}
 \hypersetup{
 	colorlinks=true
 }
@@ -15,6 +15,23 @@
 \begin{document}
 \frame{\titlepage}
 
+\begin{frame}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\includegraphics{panda-500px.jpg} \newline
+			{ \tiny Image by Art G. on \href{https://www.flickr.com/photos/digitalart/4084550022}{Flickr} licensed as CC BY-NC-ND 2.0 }
+	  \end{column}
+	  \begin{column}{0.48\textwidth}
+			{\Huge Edwin Kofler} \newline
+			\begin{itemize}
+				\item \href{https://edwinkofler.com/}{Website}
+				\item \href{https://github.com/hyperupcall}{GitHub}
+				\item \href{https://twitter.com/hyperupcall}{Twitter}
+				\item \href{https://www.linkedin.com/in/hyperupcall}{LinkedIn}
+			\end{itemize}
+	  \end{column}
+	\end{columns}
+\end{frame}
 
 \begin{frame}{Agenda}
 	\begin{enumerate}
@@ -45,14 +62,14 @@
 	But what does that mean in practice? Git...
 
 	\begin{itemize}
-		\item Lets you "look at" a file at a previous point in time
+		\item Lets you ``look at" a file at a previous point in time
 		\item Allows multiple people to work on the same codebase at a time
 		\item Lets you experiment with your code (and keep the original copy safe)
 	\end{itemize}
 
 	\note{
 		multiple people to work - if no git, would have to work on same computer. sometimes have trouble opening up files
-		history - from a "single file" to many many files like in those big projects
+		history - from a ``single file" to many many files like in those big projects
 	}
 \end{frame}
 
@@ -60,14 +77,11 @@
 \begin{frame}{Introducing GitHub}
 	\begin{itemize}
 		\item Sort of a combination of Dropbox and Twitter
-	\end{itemize}
-	\begin{itemize}
-		\item Navigate to \href{https://github.com}{GitHub}
-		\item See "Sign up" at top-right and follow prompts
+		\item Better to show, than tell...
 	\end{itemize}
 
 	\note{
-		Like Dropbox, sort of "syncing" a folder on your computer with a remote server
+		Like Dropbox, sort of ``syncing" a folder on your computer with a remote server
 
 		There is a \href{https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account}{help page}, but it does not offer useful information
 	}
@@ -76,15 +90,15 @@
 \begin{frame}{Tour of GitHub}
 	\begin{itemize}
 		\item Create GitHub account
-		\item Explore "home" view
-		\item Show "profile" view
-		\item Create a "profile README"
+		\item Explore ``home" view
+		\item Show ``profile" view
+		\item Create a ``profile README"
 		\item Show small repository: \href{https://github.com/hyperupcall/website}{hyperupcall/website}
 		\item Show large repository: \href{https://github.com/xournalpp/xournalpp}{xournalpp/xournalpp}
 	\end{itemize}
 
 	\note{
-		- in issues: "good first issue"
+		- in issues: ``good first issue"
 		- show pull requests
 	}
 \end{frame}
@@ -113,9 +127,9 @@
 \begin{frame}{Make a GitHub Contribution}
 	\begin{enumerate}
 		\item Find a repository to contribute too (ex. \href{https://github.com/ecc-cs-club/practice}{ecc-cs-club/practice})
-		\item Find an issue to "fix" (optional)
+		\item Find an issue to ``fix" (optional)
 		\item Fork the repository (usually required)
-		\item Clone your "forked" repository to your computer with a Git client (ex. GitHub Desktop)
+		\item Clone your ``forked" repository to your computer with a Git client (ex. GitHub Desktop)
 		\item Open the repository with a code editor (ex. VSCode)
 		\item Make the code or text changes required
 		\item Make a Git commit, then push your changes
@@ -132,7 +146,7 @@
 		\item \href{https://www.youtube.com/watch?v=USjZcfj8yxE}{Using Git on the command line (video)}
 		\item \href{https://education.github.com/git-cheat-sheet-education.pdf}{Git cheatsheet by GitHub}
 		\item \href{https://about.gitlab.com/images/press/git-cheat-sheet.pdf}{Git cheatsheet by GitLab}
-		\item \href{https://www.youtube.com/watch?v=yr6IzOGoMsQ}{How to contribute video}
+		\item \href{https://www.youtube.com/watch?v=yr6IzOGoMsQ}{Video: How to contribute to GitHub}
 	\end{itemize}
 \end{frame}
 \end{document}
