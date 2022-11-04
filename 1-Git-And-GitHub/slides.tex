@@ -3,6 +3,8 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \graphicspath{ {./assets} }
+% \setbeameroption{show notes}
+% \setbeameroption{show only notes}
 
 \title{Git and Github}
 \author{Edwin Kofler}
@@ -19,7 +21,7 @@
 	\begin{columns}
 		\begin{column}{0.48\textwidth}
 			\includegraphics{panda-500px.jpg} \newline
-			{ \tiny Image by Art G. on \href{https://www.flickr.com/photos/digitalart/4084550022}{Flickr} licensed as CC BY-NC-ND 2.0 }
+			{ \tiny Image by Art G. on \href{https://www.flickr.com/photos/digitalart/4084550022}{Flickr}; licensed as CC BY-NC-ND 2.0 }
 	  \end{column}
 	  \begin{column}{0.48\textwidth}
 			{\Huge Edwin Kofler} \newline
@@ -59,13 +61,22 @@
 		Git is a \href{https://git-scm.com/about/free-and-open-source}{free and open source} distributed version control system...
 	\end{displayquote}
 
-	But what does that mean in practice? Git...
+	{
+		\small
 
-	\begin{itemize}
-		\item Lets you ``look at" a file at a previous point in time
-		\item Allows multiple people to work on the same codebase at a time
-		\item Lets you experiment with your code (and keep the original copy safe)
-	\end{itemize}
+		But what does that mean in practice? Git...
+
+		\begin{itemize}
+			\item Lets you ``look at" a file at a previous point in time
+			\item Allows multiple people to work on the same codebase at a time
+			\item Lets you experiment with your code (and keep the original copy safe)
+		\end{itemize}
+	}
+	
+	\href{https://raw.githubusercontent.com/ecc-cs-club/slides/main/1-Git-And-GitHub/assets/using-git.png}{
+		\includegraphics[width=6cm]{using-git.png}
+	}
+	
 
 	\note{
 		multiple people to work - if no git, would have to work on same computer. sometimes have trouble opening up files
@@ -79,6 +90,8 @@
 		\item Sort of a combination of Dropbox and Twitter
 		\item Better to show, than tell...
 	\end{itemize}
+
+	\includegraphics[width=10cm]{dropbox-github.png} \newline
 
 	\note{
 		Like Dropbox, sort of ``syncing" a folder on your computer with a remote server
