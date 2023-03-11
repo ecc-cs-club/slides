@@ -1,0 +1,309 @@
+\documentclass[t]{beamer}
+\usepackage{minted}
+
+\title{C++ Tips}
+\author{Edwin Kofler}
+\institute{El Camino College Computer Science Club}
+\date{Unknown, 2023}
+
+\hypersetup{
+	colorlinks=true
+}
+% \setbeameroption{show notes}
+% \setbeameroption{show only notes}
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\begin{frame}{Table Of Contents}
+	\begin{enumerate}
+		\item Introduction
+		\item Compiling with more errors enabled
+		\item Using \texttt{nullptr}
+		\item Initialization with \texttt{auto}
+		\item Trailing return types
+		\item Using \texttt{std::span}
+	\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Introduction}
+	Have you ever wondered if there is a better way of doing things while writing C++?
+	Or are you tired of debugging the same errors over and over again?
+
+	\vspace{10px}
+	I'll introduce features that:
+	\begin{enumerate}
+		\item show you more errors at compile-time (so you don't have to debug them at runtime)
+		\item improve code maintainability
+		\item save time
+		\item you'll come across when reading others' code
+	\end{enumerate}
+
+	\vspace{10px}
+	Assume C++11
+\end{frame}
+
+\begin{frame}[fragile]{Compiling with more errors enabled}
+	\begin{minted}[tabsize=3]{cpp}
+$ gcc ./main.cpp && ./a.out
+	\end{minted}
+
+	\begin{minted}[tabsize=3]{cpp}
+$ gcc ./main.cpp -Wall -Wextra -pedantic && ./a.out
+	\end{minted}
+
+	\begin{itemize}
+		\item VSCode
+		\item Visual Studio
+		\item Xcode
+	\end{itemize}
+	\note{
+		- Mention other compilers
+	}
+\end{frame}
+
+\begin{frame}[fragile]{Using \texttt{nullptr}}
+	\begin{itemize}
+		\item Use \texttt{nullptr} instead of \texttt{NULL}
+		\item More errors at compile time
+	\end{itemize}
+
+	\begin{minted}[tabsize=3,linenos]{cpp}
+#include <iostream>
+
+void print_number(int i) {
+	std::cout << "number: " << i << '\n';
+}
+
+int main() {
+	print_number(40); // ?
+	print_number(NULL); // ?
+	print_number(nullptr); // ?
+}
+	\end{minted}
+
+	\note{
+		- ask about 40
+		- is NULL a number? does this make sense?
+		- what does C++ do with NULL?
+		- warnings if lucky
+
+		40 = 40
+		NULL - 0
+		nullptr - compiler error
+	}
+\end{frame}
+
+
+\begin{frame}[fragile]{Initialization with \texttt{auto}}
+	\begin{columns}[]
+		\begin{column}{.5\textwidth}
+			{\large Before}
+			\begin{minted}[tabsize=3,linenos]{cpp}
+int main() {
+	int i = 10; // int
+	long j = 2L; // long
+	float k = 8.0F; // float
+	float l = 15.1; // float
+}
+			\end{minted}
+		\end{column}
+		\begin{column}{.5\textwidth}
+			{\large After}
+			\begin{minted}[tabsize=3,linenos]{cpp}
+int main() {
+	auto i = 10; // ?
+	auto j = 2L; // ?
+	auto k = 8.0F; // ?
+	auto l = 15.1; // ?
+}
+			\end{minted}
+		\end{column}
+	\end{columns}
+
+	\begin{itemize}
+		\item term: placeholder type specifier
+	\end{itemize}
+
+	\note{
+		i - int
+		j - long
+		k - float
+		l - double
+	}
+\end{frame}
+
+
+\begin{frame}[fragile]{Initialization with \texttt{auto}: Use case 1}
+
+	{\large 1. Initializing a variable with a long type name}
+
+	\begin{minted}[tabsize=3,linenos]{cpp}
+class SomeVeryLongClassNameWow {
+	...
+};
+
+int main() {
+	// A
+	SomeVeryLongClassNameWow myInstance1 = SomeVeryLongClassNameWow();
+
+	// B
+	auto myInstance2 = SomeVeryLongClassNameWow();
+}
+			\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Initialization with \texttt{auto}: Use case 2}
+
+	{\large 2. Avoid repetition}
+
+	\begin{minted}[tabsize=3,linenos]{cpp}
+#include <vector>
+
+int main() {
+	// A
+	std::vector<int> myVector1 = std::vector<int>{1, 2, 3};
+
+	// B
+	auto myVector2 = std::vector<int>{1, 2, 3};
+}
+			\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Trailing Return Types}
+	\begin{itemize}
+		\item What is the return type of \textit{sayHi}?
+	\end{itemize}
+
+	\vspace{10px}
+	\begin{columns}[]
+		\begin{column}{.48\textwidth}
+			{\large Before}
+			\begin{minted}[tabsize=3,linenos]{cpp}
+void sayHi() {
+	std::cout << "Hi!\n";
+}
+
+int main() {
+	sayHi();
+}
+			\end{minted}
+		\end{column}
+		\pause
+		\begin{column}{.48\textwidth}
+			{\large After}
+			\begin{minted}[tabsize=3,linenos]{cpp}
+auto sayHi() {
+	std::cout << "Hi!\n";
+}
+
+int main() {
+	sayHi();
+}
+			\end{minted}
+		\end{column}
+	\end{columns}
+
+	\vspace{10px}
+	\begin{itemize}
+		\item Note: Deduction isn't always what you want (\texttt{const}, \texttt{volatile})
+	\end{itemize}
+	\begin{minted}[tabsize=3,linenos]{cpp}
+auto returnOne() {
+	int const i = 1;
+	return i;
+}
+	\end{minted}
+\end{frame}
+
+
+\begin{frame}[fragile]{Trailing Return Types (cont.)}
+	Usually, you would specify the type
+
+		{\large Can also specify manually:}
+	\begin{minted}[tabsize=3,linenos]{cpp}
+auto sayHi() -> void {
+	std::cout << "Hi!\n";
+}
+
+auto returnOne() -> const int {
+	int const i = 1;
+	return i;
+}
+	\end{minted}
+
+	\begin{itemize}
+		\item term: trailing return types
+		\item term: return type deduction
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Using \texttt{std::span} (Before)}
+	How to pass an array of ints to a function?
+	\pause
+
+	\begin{minted}[tabsize=2,linenos]{cpp}
+		void print_array(int* arr, int arr_len) {
+			for (int i = 0; i < arr_len; ++i) {
+				std::cout << arr[i] << '\n';
+			}
+		}
+
+		int main() {
+			int my_arr[] = {94, 33, 12};
+			int my_len = sizeof(my_arr) / sizeof(my_arr[0]);
+			print_array(my_arr, my_len);
+		}
+	\end{minted}
+
+	\begin{itemize}
+		\item Must pass in pointer \textit{and} its length separately
+		\item Must use \textit{sizeof}
+		\item Array is "converted" into a pointer (pointer decay)
+	\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Using \texttt{std::span} (After)}
+
+	{\large With \texttt{std::span}}
+	\begin{minted}[tabsize=2,linenos]{cpp}
+#include <iostream>
+#include <span>
+
+void print_arr(std::span<int> arr) {
+	for (int i = 0; i < arr.size(); ++i) {
+		std::cout << arr[i] << '\n';
+	}
+}
+
+int main() {
+	int* my_arr{94, 33, 12};
+	print_arr(my_arr);
+}
+\end{minted}
+
+	\begin{itemize}
+		\item \textbf{Requires C++20}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{End}
+
+\end{frame}
+
+
+\end{document}
