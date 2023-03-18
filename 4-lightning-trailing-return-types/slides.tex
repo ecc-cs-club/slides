@@ -1,0 +1,104 @@
+\documentclass[t]{beamer}
+\usepackage{minted}
+\usepackage{amsmath}
+\usepackage{bm}
+
+\title{Lightning Talk: Using \texttt{auto}}
+\author{Edwin Kofler}
+\institute{El Camino College Computer Science Club}
+\date{March 24, 2023}
+
+\hypersetup{
+	colorlinks=true
+}
+% \setbeameroption{show notes}
+\setminted[cpp]{tabsize=3,linenos}
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\begin{frame}{Table of Contents}
+	\begin{itemize}
+		\item Motivation
+		\item Trailing Return Types
+	\end{itemize}
+
+	\note{
+		names are long but googleable
+	}
+\end{frame}
+
+
+\begin{frame}{Motivation}
+	Why learn extra C++ features?
+
+	\smallskip
+	\begin{itemize}
+		\item You will read someone else's code than you write your code
+		\item You may personally prefer using the feature
+		\item Exposure to different features/techniques improves your skills
+		\item May be part of an Interview Question
+	\end{itemize}
+
+	\note {
+		- other people might use different features of C++. it's good to understand them
+		- you might like the feature (feels cleaner - chef analogy, save time)
+		- the more programming techniques you learn (and understand), the better you will get
+		- won't asp about the feature specifically, but may be part of an answer
+	}
+\end{frame}
+
+
+\begin{frame}[fragile]{Trailing Return Types}
+	\begin{columns}[]
+		\begin{column}{.44\textwidth}
+			{\large Before}
+			\begin{minted}{cpp}
+int add_two(int num) {
+	int newNum = num + 2;
+	return newNum;
+}
+			\end{minted}
+		\end{column}
+		\pause
+		\begin{column}{.5\textwidth}
+			{\large After}
+			\begin{minted}{cpp}
+auto add_two(int num) -> int {
+	int newNum = num + 2;
+	return newNum;
+}
+			\end{minted}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]{Full Example}
+	\medbreak
+	\begin{minted}{cpp}
+#include <iostream>
+
+auto add_two(int num) -> int {
+	int newNum = num + 2;
+	return newNum;
+}
+
+auto main() -> int {
+	int num1 = 11;
+	int num2 = add_two(num1);
+	std::cout << num2 << '\n';
+}
+\end{minted}
+	\note {
+		- can even remove the '-> int' part. Return type will be deduced
+		- Deduced return types
+	}
+\end{frame}
+
+
+\end{document}
