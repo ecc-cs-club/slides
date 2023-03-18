@@ -1,0 +1,120 @@
+\documentclass[t]{beamer}
+\usepackage{minted}
+\usepackage{amsmath}
+\usepackage{bm}
+
+\title{Lightning Talk: Using \texttt{std::span}}
+\author{Edwin Kofler}
+\institute{El Camino College Computer Science Club}
+\date{March 24, 2023}
+
+\hypersetup{
+	colorlinks=true
+}
+% \setbeameroption{show notes}
+\setminted[cpp]{tabsize=3,linenos}
+
+
+\begin{document}
+
+
+\begin{frame}
+	\titlepage
+
+	\note {
+		- question: which C++ class are people in?
+		- question: who is familiar with C++ arrays and vectors?
+	}
+\end{frame}
+
+\begin{frame}{Table of Contents}
+
+	\begin{enumerate}
+		\item Problem Statement
+		\item Is there a better way?
+		\item Using \texttt{std::span}
+		\item Considerations
+	\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]{Problem Statement}
+
+	How to pass a ``raw'' array to a function in C++?
+	\smallskip
+	\begin{minted}{cpp}
+#include <iostream>
+
+void print_array(/* ? */) {
+	// ?
+}
+
+int main() {
+	int my_arr[] = {94, 20, 0, 17};
+
+	print_array(/* ? */);
+}
+	\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Problem Statement}
+
+	By passing in a pointer and length...
+	\smallskip
+	\inputminted{cpp}{./code/without_span.cpp}
+\end{frame}
+
+
+\begin{frame}[fragile]{Is there a better way?}
+
+	It's annoying to pass in a pointer \textit{and} its length...
+	\smallskip
+	\begin{itemize}
+		\item Need to pass in pointer \textit{and} length: {\small (\texttt{int *arr, int arr\_len})}
+		\item Need to do the \texttt{sizeof} thing: {\small (\texttt{sizeof(my\_arr)/sizeof(my\_arr[0])})}
+	\end{itemize}
+
+	\bigskip
+	Is there a better way?
+	\smallskip
+	\pause
+
+	\begin{itemize}
+		\item \texttt{std::vector} (not array)
+		\item \texttt{std::array}
+		\item \texttt{std::span} \(\Leftarrow\)
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Using \texttt{std::span}}
+	\inputminted{cpp}{./code/with_span.cpp}
+\end{frame}
+
+
+\begin{frame}[fragile]{Considerations: \texttt{std::span} \textit{requires} C++20}
+	C++ \textit{standards} are released every 3 years. \newline
+
+	C++20 is the version of C++ released in 2020. \newline
+
+	You must configure your IDE or compiler to use to use C++20:
+	\smallskip
+	\begin{itemize}
+		\item Visual Studio: \hyperlink{https://youtu.be/XsDR01GMxEI?t=144}{Configure to use C++20}
+		\item Visual Studio Code: \hyperlink{https://stackoverflow.com/a/68401689}{Configure to use C++20}
+		\item Xcode: C++20 is already used by default since Xcode 14
+		\item GCC: \texttt{g++ -std=c++20 ./main.cpp \&\& ./a.out}
+	\end{itemize}
+
+	\bigskip
+	If you do not properly configure your IDE, you will get errors:
+	\begin{minted}{yaml}
+./main.cpp:4:23: error: ‘span’ is not a member of ‘std’
+    4 | void print_array(std::span<int> arr) {
+      |                       ^~~~
+	\end{minted}
+\end{frame}
+
+\end{document}

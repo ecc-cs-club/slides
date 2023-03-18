@@ -1,0 +1,222 @@
+\documentclass[t]{beamer}
+\usepackage{minted}
+\usepackage{amsmath}
+\usepackage{bm}
+
+\title{Lightning Talk: Using \texttt{auto}}
+\author{Edwin Kofler}
+\institute{El Camino College Computer Science Club}
+\date{March 24, 2023}
+
+\hypersetup{
+	colorlinks=true
+}
+% \setbeameroption{show notes}
+\setminted[cpp]{tabsize=3,linenos}
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\begin{frame}{Table of Contents}
+	\begin{itemize}
+		\item Motivation
+		\item Feature 1: Placeholder Type Specifier
+		\item Feature 2: Trailing Return Types
+	\end{itemize}
+
+	\note{
+		names are long but googleable
+	}
+\end{frame}
+
+
+\begin{frame}{Motivation}
+	Why learn extra C++ features?
+
+	\smallskip
+	\begin{itemize}
+		\item You will read someone else's code than you write your code
+		\item You may personally prefer using the feature
+		\item Exposure to different features/techniques improves your skills
+		\item May be part of an Interview Question
+	\end{itemize}
+
+	\note {
+		- other people might use different features of C++. it's good to understand them
+		- you might like the feature (feels cleaner - chef analogy, save time)
+		- the more programming techniques you learn (and understand), the better you will get
+		- won't asp about the feature specifically, but may be part of an answer
+	}
+\end{frame}
+
+
+\begin{frame}[fragile]{Feature 1: Placeholder Type Specifier}
+	\begin{columns}[]
+		\begin{column}{.5\textwidth}
+			{\large Before}
+			\begin{minted}{cpp}
+	int main() {
+		int i = 10;
+	}
+				\end{minted}
+		\end{column}
+		\pause
+		\begin{column}{.5\textwidth}
+			{\large After}
+			\begin{minted}{cpp}
+	int main() {
+		auto i = 10; // ?
+	}
+				\end{minted}
+		\end{column}
+	\end{columns}
+
+	\note{
+		- does 'i' still have a type
+		- what happens
+	}
+
+	\pause
+	\bigskip
+	Use "auto" instead of a type as a "placeholder". Let the C++ compiler deduce (figure out) the type.
+	\bigskip
+
+	What are the types of \texttt{i} and \texttt{j}?
+	\smallskip
+	\begin{minted}{cpp}
+	int main() {
+		auto i = 1.0; // ?
+		auto j = 1.0F; // ?
+	}
+	\end{minted}
+	\pause
+
+	\bigskip
+	\texttt{i} is a \texttt{double} and \texttt{j} is a \texttt{float}.
+
+	\note {
+		- only when declaring variables
+		- declaring a function with auto param, will not work / work the same
+	}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Feature 1: Knowledge Test}
+	\note {
+		- who knows references?
+	}
+	\begin{minted}{cpp}
+int some_function() { return 2; };
+
+int main() {
+	auto example_1 = some_function(); // 1
+
+	auto example_2 = "other text"; // 2
+
+	auto const example_3 = 77; // 3
+
+	int &num = 10;
+	auto example_4 = num; // 4
+}
+	\end{minted}
+
+	\begin{itemize}
+		\pause
+		\item \texttt{example\_1} is an \texttt{int}
+		      \pause
+		\item \texttt{example\_2} is a \texttt{char*}
+		      \pause
+		\item \texttt{example\_3} is a \texttt{int const}
+		      \pause
+		\item \texttt{example\_4} is an \texttt{int}
+	\end{itemize}
+
+	\medbreak
+	\texttt{auto} "ignores" references
+\end{frame}
+
+
+\begin{frame}[fragile]{Feature 2: Trailing Return Types}
+
+	What does this code do?
+	\medbreak
+	\begin{minted}{cpp}
+#include <iostream>
+
+int add_two(int num) {
+	int newNum = num + 2;
+	return newNum;
+}
+
+int main() {
+	int num1 = 11;
+	int num2 = add_two(num1);
+	std::cout << num2 << '\n';
+}
+\end{minted}
+\end{frame}
+
+
+\begin{frame}[fragile]{Feature 2: Trailing Return Types}
+	\begin{columns}[]
+		\begin{column}{.44\textwidth}
+			{\large Before}
+			\begin{minted}{cpp}
+int add_two(int num) {
+	int newNum = num + 2;
+	return newNum;
+}
+			\end{minted}
+		\end{column}
+		\pause
+		\begin{column}{.5\textwidth}
+			{\large After}
+			\begin{minted}{cpp}
+auto add_two(int num) -> int {
+	int newNum = num + 2;
+	return newNum;
+}
+			\end{minted}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]{Feature 2: Full Example}
+	\medbreak
+	\begin{minted}{cpp}
+#include <iostream>
+
+auto add_two(int num) -> int {
+	int newNum = num + 2;
+	return newNum;
+}
+
+auto main() -> int {
+	int num1 = 11;
+	int num2 = add_two(num1);
+	std::cout << num2 << '\n';
+}
+\end{minted}
+	\note {
+		- can even remove the '-> int' part. Return type will be deduced
+		- Deduced return types
+	}
+\end{frame}
+
+
+\begin{frame}[fragile]{Using Both Features}
+	\medbreak
+	\inputminted{cpp}{./code/auto.cpp}
+	\note {
+		- can even remove the '-> int' part. Return type will be deduced
+		- Deduced return types
+	}
+\end{frame}
+
+\end{document}
